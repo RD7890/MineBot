@@ -1,0 +1,18 @@
+name: MineBot
+version: '${version}'
+main: com.minebot.plugin.MineBot
+api-version: '1.21'
+description: Programmable fake-player bot plugin for Paper
+author: RD7890
+commands:
+  bot:
+    description: Manage fake player bots
+    usage: /bot <spawn|remove|follow|stay|mine|guard|patrol|farm|list|tp|equip|info> [args]
+    permission: minebot.use
+permissions:
+  minebot.use:
+    description: Allows use of /bot commands
+    default: op
+  minebot.admin:
+    description: Admin permissions for MineBot
+    default: op

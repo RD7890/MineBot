@@ -1,0 +1,39 @@
+name: Build Paper Plugin
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+      - name: Build Paper Plugin
+        run: ./gradlew build --no-daemon --stacktrace
+      - name: Upload Plugin JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: Paper-Plugin
+          path: build/libs/*.jar
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Paper Plugin Build ${{ github.run_number }}
+          files: build/libs/*.jar
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
