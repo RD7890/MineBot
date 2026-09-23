@@ -1,7 +1,7 @@
 name: MineBot
 version: '${version}'
 main: com.minebot.plugin.MineBot
-api-version: '1.21'
+api-version: '26.2'
 description: Programmable fake-player bot plugin for Paper
 author: RD7890
 commands:
